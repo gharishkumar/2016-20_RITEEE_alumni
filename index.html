@@ -7,10 +7,41 @@
     <title>Alumni Meet Invitation Details</title>
     <link rel="icon" type="image/x-icon" href="https://gharishkumar.github.io/2016-20_RITEEE_alumni/favicon.ico">
     <style>
+        body {
+          background-color: rgb(248, 248, 248);
+        }
+        #myInput {
+          background: transparent;
+          outline: 0;
+          border: 0;
+          padding-top: 10px;
+          width: 100%;
+          font-size: 16px;
+          border-bottom: 1px solid rgb(0, 0, 0);
+          margin-bottom: 12px;
+        }
+        #myInput_1 {
+          background: transparent;
+          outline: 0;
+          border: 0;
+          width: 100%;
+          font-size: 16px;
+          padding-top: 10px;
+          border-bottom: 1px solid rgb(0, 0, 0);
+          margin-bottom: 12px;
+        }
+        #search {
+          content: url('searchicon.png');
+        }
         table {
           font-family: arial, sans-serif;
           border-collapse: collapse;
-          width: 100%;
+          margin-top: 50px;
+          margin-left: auto;
+          margin-right: auto;
+          border-radius: 10px;
+          border-style: hidden; /* hide standard table (collapsed) border */
+          box-shadow: 0 0 0 1px #666; /* this draws the table border  */ 
         }
         
         td, th {
@@ -18,18 +49,91 @@
           text-align: left;
           padding: 8px;
         }
+        th {
+          padding: 15px;
+        }
         
-        tr:nth-child(even) {
+        tr:nth-child(odd) {
           background-color: #dddddd;
         }
+
+        table tr:first-child th:first-child {
+          border-top-left-radius: 10px;
+        }
+
+        table tr:first-child th:last-child {
+          border-top-right-radius: 10px;
+        }
+
+        table tr:last-child td:first-child {
+          border-bottom-left-radius: 10px;
+        }
+
+        table tr:last-child td:last-child {
+          border-bottom-right-radius: 10px;
+        }
+        
+        @media only screen and (min-width: 600px) {
+          table{
+            width: 100%;
+          }
+        }
+        
+        @media only screen and (min-width: 768px) {
+          table{
+            width: 80%;
+          }
+        }
+
+        @media (prefers-color-scheme: dark) {
+          * {
+            color: white;
+          }
+          body {
+            background-color: rgb(41, 41, 41); 
+          }
+          table {
+            box-shadow: 0 0 0 1px rgb(209, 209, 209);
+          }
+          #myInput {
+            border-bottom: 1px solid rgb(255, 255, 255);
+          }
+          #myInput_1 {
+            border-bottom: 1px solid rgb(255, 255, 255);
+          }
+          #search {
+            content: url('searchicon_dark.png');
+          }
+          td, th {
+            border: 1px solid rgb(209, 209, 209);
+          }
+          tr:nth-child(odd) {
+            background-color: rgb(71, 71, 71); 
+          }
+        }
+        
+
     </style>
 </head>
 <body>
-    <table>
+    <table id="myTable">
         <tr>
             <th>No.</th>
             <th>Name</th>
             <th>Invitaion state</th>
+          </tr>
+
+          <tr>
+            <td><img id="search" alt="Search"></td>
+            <td><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"></td>
+            <td><input type="text" id="myInput_1" onkeyup="myFunction_1()" placeholder="Search for status.." list = "status" title="Type in a status">
+              <datalist id="status">
+                <option value="✔️">
+                <option value="✅">
+                <option value="👁️‍🗨️">
+                <option value="📄✏️">
+              </datalist>
+            </td>
           </tr>
           <tr>
             <td>1</td>
@@ -307,5 +411,43 @@
             <td>✔️👁️‍🗨️</td>
           </tr>
     </table>
+    <script>
+      function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[1];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1 || i == 1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }       
+        }
+      }
+      function myFunction_1() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput_1");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[2];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1 || i == 1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }       
+        }
+      }
+      </script>
 </body>
 </html>
